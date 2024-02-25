@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NewDogTinder.Api</name>
+    </assembly>
+    <members>
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PostAppointment(NewDogTinder.ViewModels.PostUpdateAppointment)">
+             <summary>
+             Creates an appointment.
+             </summary>
+             <param name="postAppointment"></param>
+             <returns>A newly created appointment</returns>
+             <remarks>
+             Sample request:
+                 POST /Appointment
+                 {
+                    "time": "2022-05-20",
+                    "placeId": 1,
+                    "dogId": 1
+                 }
+            
+             </remarks>
+             <response code="201">Return void</response>
+             <response code="400">If the item is null</response>
+        </member>
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PatchAppointment(NewDogTinder.ViewModels.PostUpdateAppointment)">
+             <summary>
+             Update an appointment.
+             </summary>
+             <param name="patchAppointment"></param>
+             <returns>A newly created appointment</returns>
+             <remarks>
+             Sample request:
+                 Patch /Appointment
+                 {
+                    "appointment": 1,
+                    "time": "2022-05-20",
+                    "placeId": 1,
+                    "dogId": 1
+                 }
+            
+             </remarks>
+             <response code="204">Return void</response>
+             <response code="400">If the item is null</response>
+        </member>
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.DeleteAppointment(System.Int32)">
+             <summary>
+             Update an appointment.
+             </summary>
+             <param name="appointment"></param>
+             <returns>A newly created appointment</returns>
+             <remarks>
+             Sample request:
+                 Delete /Appointment
+                 {
+                    "appointment": 1,
+                    "time": "2022-05-20",
+                    "placeId": 1,
+                    "dogId": 1
+                 }
+            
+             </remarks>
+             <response code="200">Return void</response>
+             <response code="400">If the item is null</response>
+        </member>
+    </members>
+</doc>

@@ -5,6 +5,7 @@ using NewDogTinder.Repository.IRepositories;
 using NewDogTinder.Repository.Repositories;
 using NewDogTinder.Services.IService;
 using NewDogTinder.Services.Service;
+using System.Reflection;
 
 namespace NewDogTinder
 {
@@ -37,7 +38,13 @@ namespace NewDogTinder
                 options.UseSqlite(Configuration["ConnectionStrings:NewDogTinder"]);
             });
             services.AddAutoMapper(typeof(Startup));
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(setupAction =>
+            {
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +66,6 @@ namespace NewDogTinder
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthentication();
 
             app.UseAuthorization();
 
