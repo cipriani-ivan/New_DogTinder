@@ -7,6 +7,6 @@ namespace NewDogTinder.Services.IService
 	public interface IOwnerService
 	{
 		Task<IList<OwnerViewModel>> GetOwners();
-		Task InsertOwner(OwnerViewModel ownerViewmodel);
+		Task InsertOwner(OwnerForInsertViewModel ownerViewmodel);
 	}
 }

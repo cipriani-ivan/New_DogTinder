@@ -4,9 +4,10 @@ namespace NewDogTinder.Repository.IRepositories
 {
     public interface IAppointmentRepository : IGenericRepository<Appointment>
 	{
-		Task<IEnumerable<Appointment>> GetAll();
-		void Insert(Appointment owner);
-		void Update(Appointment owner);
-		void Delete(int appointmentId);
+		Task<Appointment> Get(int appointmentId);
+        Task<IEnumerable<Appointment>> GetAll();
+        Appointment InsertAppointment(Appointment owner);
+        Appointment UpdateAppointment(Appointment owner);
+		bool Delete(int appointmentId);
 	}
 }

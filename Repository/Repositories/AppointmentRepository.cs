@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using NewDogTinder.EFDataAccessLibrary.DataAccess;
 using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.Repository.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NewDogTinder.Repository.Repositories
 {
-	public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
+    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
 	{
 
 		private readonly NewDogTinderContext Context;
@@ -25,12 +19,21 @@ namespace NewDogTinder.Repository.Repositories
 			Logger = logFactory.CreateLogger<AppointmentRepository>();
 		}
 
-		public async Task<IEnumerable<Appointment>> GetAll()
+        public async Task<Appointment> Get(int appointmentId)
+        {
+			// TODO: create a custom exception 
+			var appointment = await Context.Appointments.Where(x => x.AppointmentId == appointmentId)
+				.Include(a => a.Place).Include(a => a.Dog).ThenInclude(a => a.Owner).SingleOrDefaultAsync() ??
+				throw new Exception($"Appoint with id = {appointmentId} is not present in the database");
+			return appointment;
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAll()
 		{
 			return await Context.Appointments.Include(a => a.Place).Include(a => a.Dog).ThenInclude(a => a.Owner).ToListAsync();
 		}
 
-		public override void Insert(Appointment appointment)
+		public Appointment InsertAppointment(Appointment appointment)
 		{
 			try
 			{
@@ -38,7 +41,7 @@ namespace NewDogTinder.Repository.Repositories
 				var place = Context.Places.First(x => x.PlaceId == appointment.Place.PlaceId);
 				appointment.Dog = dog;
 				appointment.Place = place;
-				Context.Appointments.Add(appointment);
+				return Context.Appointments.Add(appointment).Entity;
 			}
 			catch
 			{
@@ -47,7 +50,7 @@ namespace NewDogTinder.Repository.Repositories
 			}
 		}
 
-		public override void Update(Appointment appointment)
+		public Appointment UpdateAppointment(Appointment appointment)
 		{
 			try
 			{
@@ -56,11 +59,17 @@ namespace NewDogTinder.Repository.Repositories
 				var dog = Context.Dogs.First(x => x.DogId == appointment.Dog.DogId);
 				var place = Context.Places.First(x => x.PlaceId == appointment.Place.PlaceId);
 
-				if (app == null) return;
+				if (app == null)
+				{
+					return null;
+				}
+
 				app.Dog = dog;
 				app.Place = place;
 				app.Time = appointment.Time;
-			}
+				return app;
+
+            }
 			catch(Exception)
 			{
 				Logger.LogInformation($"Log message in the Update() method dogId = {appointment.Dog.DogId} or placeId = {appointment.Place.PlaceId}  or is not a valid id");
@@ -68,12 +77,20 @@ namespace NewDogTinder.Repository.Repositories
 			}
 		}
 
-		public void Delete(int appointmentId)
+		public bool Delete(int appointmentId)
 		{
 			try
 			{
 				var app = Context.Appointments.FirstOrDefault(i => i.AppointmentId == appointmentId);
-				if (app != null) Context.Appointments.Remove(app);
+				if (app != null)
+				{
+					Context.Appointments.Remove(app);
+					return true;
+				}
+				else 
+				{ 
+					return false; 
+				}
 			}
 			catch (Exception)
 			{

@@ -13,8 +13,5 @@ namespace NewDogTinder.EFDataAccessLibrary.Models
 		public string Breed { get; set; }	
 		
 		public Owner Owner { get; set; }
-
-		[Required]
-		public ICollection<Appointment> Appointments { get; set; }
 	}
 }

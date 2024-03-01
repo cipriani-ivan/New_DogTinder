@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.Services.IService;
 using NewDogTinder.ViewModels;
 
@@ -24,7 +25,7 @@ namespace NewNewDogTinder.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostOwner([FromBody] OwnerViewModel ownerViewModel)
+		public async Task<ActionResult> PostOwner([FromBody] OwnerForInsertViewModel ownerViewModel)
 		{
 			if (!ModelState.IsValid)
 			{

@@ -23,7 +23,7 @@ namespace NewDogTinder.Services.Service
 			return Mapper.Map<List<OwnerViewModel>>(owners);
 		}
 
-		public async Task InsertOwner(OwnerViewModel ownerViewModel)
+		public async Task InsertOwner(OwnerForInsertViewModel ownerViewModel)
 		{
 			var owner = Mapper.Map<Owner>(ownerViewModel);
 			OwnerRepository.Insert(owner);

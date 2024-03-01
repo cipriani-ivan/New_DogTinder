@@ -16,7 +16,7 @@ namespace NewDogTinder.Repository
 			dbSet = context.Set<TEntity>();
 		}
 
-		public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
 			Expression<Func<TEntity, bool>> filter = null,
 			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
 			string includeProperties = "")

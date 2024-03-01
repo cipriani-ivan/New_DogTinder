@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.Repository.IRepositories;
 using NewDogTinder.Services.IService;
@@ -17,47 +18,56 @@ namespace NewDogTinder.Services.Service
 			Mapper = mapper;
 		}
 
-		public async Task<IList<AppointmentViewModel>> GetAppointments()
+		public async Task<AppointmentViewModel> GetAppointment(int appointmentId)
 		{
-			var appointments = await AppointmentRepository.GetAll();
-			return Mapper.Map<List<AppointmentViewModel>>(appointments);
+			var appointment = await AppointmentRepository.Get(appointmentId);
+			return Mapper.Map<AppointmentViewModel>(appointment);
 		}
 
-		public async Task InsertAppointment(PostUpdateAppointment appointmentViewModel)
-		{
-			var appointment = new Appointment
-			{
-				Time = appointmentViewModel.Time,
-				Place = new Place() { PlaceId = appointmentViewModel.PlaceId },
-				Dog = new Dog() { DogId = appointmentViewModel.DogId } 
-			};
+        public async Task<IList<AppointmentViewModel>> GetAppointments()
+        {
+            var appointments = await AppointmentRepository.GetAll();
+            return Mapper.Map<List<AppointmentViewModel>>(appointments);
+        }
 
-			AppointmentRepository.Insert(appointment);
+        public async Task<Appointment> InsertAppointment(AppointmentForInsertViewModel appointmentViewModel)
+		{
+            var appointment = Mapper.Map<Appointment>(appointmentViewModel);
+            var appointmentCreated = AppointmentRepository.InsertAppointment(appointment);
+			await AppointmentRepository.SaveAsync();
+			return appointmentCreated;
+        }
+
+		public async Task<Appointment> UpdateAppointment(AppointmentForUpdateViewModel appointmentViewModel)
+		{
+            var appointment = Mapper.Map<Appointment>(appointmentViewModel);
+            var appointmentUpdate = AppointmentRepository.UpdateAppointment(appointment);
+			await AppointmentRepository.SaveAsync();
+            return appointmentUpdate;
+        }
+
+        public async Task<Appointment> PartiallyUpdateAppointment(int appointmentId, JsonPatchDocument<AppointmentForUpdateViewModel> appointmentPatch)
+        {
+            var appointment = await AppointmentRepository.Get(appointmentId);
+            if (appointment == null)
+            {
+                return null;
+            }
+            var appointmentForUpdateViewModel = Mapper.Map<AppointmentForUpdateViewModel>(appointment);
+            appointmentPatch.ApplyTo(appointmentForUpdateViewModel);
+            Mapper.Map(appointmentForUpdateViewModel, appointment);
+            var appointmentPartiallyUpdate = AppointmentRepository.UpdateAppointment(appointment);
+
+            await AppointmentRepository.SaveAsync();
+            return appointmentPartiallyUpdate;
+        }
+
+        public async Task<bool> DeleteAppointment(int appointmentId)
+		{
+			var successDelete = AppointmentRepository.Delete(appointmentId);
 
 			await AppointmentRepository.SaveAsync();
-		}
-
-		public async Task UpdateAppointment(PostUpdateAppointment appointmentViewModel)
-		{
-			// TODO: move to profile
-			var appointment = new Appointment
-			{
-				AppointmentId = appointmentViewModel.AppointmentId,
-				Time = appointmentViewModel.Time,
-				Place = new Place(){PlaceId = appointmentViewModel.PlaceId},
-				Dog = new Dog(){DogId = appointmentViewModel.DogId}
-			};
-
-			AppointmentRepository.Update(appointment);
-
-			await AppointmentRepository.SaveAsync();
-		}
-
-		public async Task DeleteAppointment(int appointmentId)
-		{
-			AppointmentRepository.Delete(appointmentId);
-
-			await AppointmentRepository.SaveAsync();
+            return successDelete;
 		}
 	}
 }

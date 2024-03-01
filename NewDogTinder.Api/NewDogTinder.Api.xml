@@ -4,7 +4,7 @@
         <name>NewDogTinder.Api</name>
     </assembly>
     <members>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PostAppointment(NewDogTinder.ViewModels.PostUpdateAppointment)">
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PostAppointment(NewDogTinder.ViewModels.AppointmentForInsertViewModel)">
              <summary>
              Creates an appointment.
              </summary>
@@ -23,7 +23,27 @@
              <response code="201">Return void</response>
              <response code="400">If the item is null</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PatchAppointment(NewDogTinder.ViewModels.PostUpdateAppointment)">
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.UpdateAppointment(NewDogTinder.ViewModels.AppointmentForUpdateViewModel)">
+             <summary>
+             Update an appointment.
+             </summary>
+             <param name="UpdateAppointment"></param>
+             <returns>A newly created appointment</returns>
+             <remarks>
+             Sample request:
+                 Patch /Appointment
+                 {
+                    "appointment": 1,
+                    "time": "2022-05-20",
+                    "placeId": 1,
+                    "dogId": 1
+                 }
+            
+             </remarks>
+             <response code="204">Return void</response>
+             <response code="400">If the item is null</response>
+        </member>
+        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PatchAppointment(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{NewDogTinder.ViewModels.AppointmentForUpdateViewModel})">
              <summary>
              Update an appointment.
              </summary>
