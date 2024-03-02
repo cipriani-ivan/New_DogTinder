@@ -34,9 +34,10 @@ namespace NewDogTinder.Repository
 			return orderBy != null ? await  orderBy(query).ToListAsync() : await  query.ToListAsync();
 		}
 
-		public virtual void Insert(TEntity entity)
+		public virtual TEntity Insert(TEntity entity)
 		{
 			dbSet.Add(entity);
+			return entity;
 		}
 
 		public virtual void Update(TEntity entity)

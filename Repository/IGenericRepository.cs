@@ -9,7 +9,7 @@ namespace NewDogTinder.Repository
 			Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
 			string includeProperties = "");
 
-		void Insert(TEntity entity);
+        TEntity Insert(TEntity entity);
 		void Update(TEntity entity);
 		void Delete(TEntity entity);
 		Task SaveAsync();

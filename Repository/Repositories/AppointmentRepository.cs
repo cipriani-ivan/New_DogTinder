@@ -24,7 +24,7 @@ namespace NewDogTinder.Repository.Repositories
 			// TODO: create a custom exception 
 			var appointment = await Context.Appointments.Where(x => x.AppointmentId == appointmentId)
 				.Include(a => a.Place).Include(a => a.Dog).ThenInclude(a => a.Owner).SingleOrDefaultAsync() ??
-				throw new Exception($"Appoint with id = {appointmentId} is not present in the database");
+				throw new Exception($"Appointment with id = {appointmentId} is not present in the database");
 			return appointment;
         }
 

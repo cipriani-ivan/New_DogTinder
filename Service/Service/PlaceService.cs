@@ -17,17 +17,24 @@ namespace NewDogTinder.Services.Service
 			Mapper = mapper;
 		}
 
-		public async Task<IList<PlaceViewModel>> GetPlaces()
+        public async Task<PlaceViewModel> GetPlace(int placeId)
+        {
+            var place = await PlaceRepository.Get(placeId);
+            return Mapper.Map<PlaceViewModel>(place);
+        }
+
+        public async Task<IList<PlaceViewModel>> GetPlaces()
 		{
 			var places = await PlaceRepository.GetAllAsync();
 			return Mapper.Map<List<PlaceViewModel>>(places);
 		}
 
-		public async Task InsertPlace(PlaceViewModel placeViewmodel)
+		public async Task<Place> InsertPlace(PlaceForInsertViewModel placeViewmodel)
 		{
 			var place = Mapper.Map<Place>(placeViewmodel);
-			PlaceRepository.Insert(place);
+            var placeCreated =  PlaceRepository.Insert(place);
 			await PlaceRepository.SaveAsync();
+			return placeCreated;
 		}
 	}
 }

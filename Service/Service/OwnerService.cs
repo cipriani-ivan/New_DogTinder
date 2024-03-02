@@ -17,17 +17,24 @@ namespace NewDogTinder.Services.Service
 			Mapper = mapper;
 		}
 
-		public async Task<IList<OwnerViewModel>> GetOwners()
+        public async Task<OwnerViewModel> GetOwner(int ownerId)
+        {
+            var owner = await OwnerRepository.Get(ownerId);
+            return Mapper.Map<OwnerViewModel>(owner);
+        }
+
+        public async Task<IList<OwnerViewModel>> GetOwners()
 		{
 			var owners = await OwnerRepository.GetAllAsync();
 			return Mapper.Map<List<OwnerViewModel>>(owners);
 		}
 
-		public async Task InsertOwner(OwnerForInsertViewModel ownerViewModel)
+		public async Task<Owner> InsertOwner(OwnerForInsertViewModel ownerViewModel)
 		{
 			var owner = Mapper.Map<Owner>(ownerViewModel);
-			OwnerRepository.Insert(owner);
+			var ownerCreated = OwnerRepository.Insert(owner);
 			await OwnerRepository.SaveAsync();
-		}
+			return ownerCreated;
+        }
 	}
 }

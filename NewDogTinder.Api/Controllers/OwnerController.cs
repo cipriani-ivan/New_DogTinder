@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.Services.IService;
 using NewDogTinder.ViewModels;
 
@@ -10,39 +9,65 @@ namespace NewNewDogTinder.Api.Controllers
 	public class OwnerController : ControllerBase
 	{
 		private readonly IOwnerService OwnerService;
-		private readonly ILogger Logger;
 
-		public OwnerController(IOwnerService ownerService, ILoggerFactory logFactory)
+		public OwnerController(IOwnerService ownerService)
 		{
 			OwnerService = ownerService;
-			Logger = logFactory.CreateLogger<AppointmentController>();
 		}
 
-		[HttpGet]
+        /// <summary>
+        /// Get specific owner.
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns>Owner</returns>
+        /// <response code="200"></response>
+        [HttpGet("{ownerid}", Name = "GetOwner")]
+        public async Task<OwnerViewModel> GetOwner(int ownerId)
+        {
+            return await OwnerService.GetOwner(ownerId);
+        }
+
+        /// <summary>
+        /// Get all the owners.
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <returns>A list of owners</returns>
+        /// <response code="200"></response>
+        [HttpGet]
 		public async Task<IList<OwnerViewModel>> GetOwners()
 		{
 			return await OwnerService.GetOwners();
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> PostOwner([FromBody] OwnerForInsertViewModel ownerViewModel)
+        /// <summary>
+        /// Creates an owner.
+        /// </summary>
+        /// <param name="ownerViewModel"></param>
+        /// <returns>A newly created appointment</returns>
+        /// <remarks>
+        /// Sample request:
+        ///     POST /Owner
+        ///     {
+        ///        "name": "string",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Return void</response>
+        /// <response code="400">Input parameters are not valid</response>
+        [HttpPost]
+		public async Task<ActionResult> PostOwner(OwnerForInsertViewModel ownerViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest();
 			}
 
-			try
-			{
-				Logger.LogInformation("Log message in the PostOwner() method");
-				await OwnerService.InsertOwner(ownerViewModel);
-				return Created("", null);
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError,
-					"Error creating new owner record");
-			}
-		}		
+			var ownerCreated = await OwnerService.InsertOwner(ownerViewModel);
+            return CreatedAtRoute("GetOwner",
+                new
+                {
+                    ownerId = ownerCreated.OwnerId,
+                }, ownerCreated);
+        }		
 	}
 }

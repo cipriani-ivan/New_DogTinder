@@ -17,17 +17,24 @@ namespace NewDogTinder.Services.Service
 			Mapper = mapper;
 		}
 
-		public async Task<IList<DogViewModel>> GetDogs()
+        public async Task<DogViewModel> GetDog(int dogId)
+        {
+            var dog = await DogRepository.Get(dogId);
+            return Mapper.Map<DogViewModel>(dog);
+        }
+
+        public async Task<IList<DogViewModel>> GetDogs()
 		{
 			var dogs = await DogRepository.GetAllAsync(includeProperties: "Owner");
 			return Mapper.Map<List<DogViewModel>>(dogs);
 		}
 
-		public async Task InsertDog(DogViewModel dogViewmodel)
+		public async Task<Dog> InsertDog(DogForInsertViewModel dogViewmodel)
 		{
 			var dog = Mapper.Map<Dog>(dogViewmodel);
-			DogRepository.Insert(dog, dogViewmodel.OwnerId);
+			var dogCreated = DogRepository.Insert(dog, dogViewmodel.OwnerId);
 			await DogRepository.SaveAsync();
-		}
+			return dogCreated;
+        }
 	}
 }

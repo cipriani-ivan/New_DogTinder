@@ -9,39 +9,66 @@ namespace NewNewDogTinder.Api.Controllers
 	public class DogController : ControllerBase
 	{
 		private readonly IDogService DogService;
-		private readonly ILogger Logger;
 
-		public DogController(IDogService ownerService, ILoggerFactory logFactory)
+		public DogController(IDogService ownerService)
 		{
 			DogService = ownerService;
-			Logger = logFactory.CreateLogger<AppointmentController>();
 		}
 
-		[HttpGet]
+        /// <summary>
+        /// Get a specific dog with the owner.
+        /// </summary>
+        /// <param name="dogId"></param>
+        /// <returns>A specific dog with the owner</returns>
+        /// <response code="200"></response>
+        [HttpGet("{dogid}", Name = "GetDog")]
+        public async Task<DogViewModel> GetDog(int dogId)
+        {
+            return await DogService.GetDog(dogId);
+        }
+
+        /// <summary>
+        /// Get all dogs included owner.
+        /// </summary>
+        /// <returns>A list of dogs with the owner</returns>
+        /// <response code="200"></response>
+        [HttpGet]
 		public async Task<IList<DogViewModel>> GetDogs()
 		{
 			return await DogService.GetDogs();
-		}
+        }
 
-		[HttpPost]
-		public async Task<ActionResult> PostDog([FromBody] DogViewModel dogViewModel)
+        /// <summary>
+        /// Creates a dog.
+        /// </summary>
+        /// <param name="postDog"></param>
+        /// <returns>A newly created dog</returns>
+        /// <remarks>
+        /// Sample request:
+        ///     POST /Dog
+        ///     {
+        ///        "name": "string",
+        ///        "breed": "string",
+        ///        "ownerId": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Return void</response>
+        /// <response code="400">Input parameters are not valid</response>
+        [HttpPost]
+		public async Task<ActionResult> PostDog(DogForInsertViewModel postDog)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest();
 			}
 
-			try
-			{
-				Logger.LogInformation("Log message in the PostDog() method");
-				await DogService.InsertDog(dogViewModel);
-				return Created("", null);
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError,
-					"Error creating new dog record");
-			}
-		}
+			var dogCreated = await DogService.InsertDog(postDog);
+            return CreatedAtRoute("GetDog",
+				new
+				{
+                    dogId = dogCreated.DogId,
+				}, dogCreated);
+        }
 	}
 }

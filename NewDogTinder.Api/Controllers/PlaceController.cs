@@ -17,31 +17,58 @@ namespace NewNewDogTinder.Api.Controllers
 			Logger = logFactory.CreateLogger<AppointmentController>();
 		}
 
-		[HttpGet]
+        /// <summary>
+        /// Get a specific place.
+        /// </summary>
+        /// <param name="placeid"></param>
+        /// <returns>A place</returns>
+        /// <response code="200"></response>
+        [HttpGet("{placeid}", Name = "GetPlace")]
+        public async Task<PlaceViewModel> GetAppointment(int placeid)
+        {
+            return await PlaceService.GetPlace(placeid);
+        }
+
+        /// <summary>
+        /// Get all the places.
+        /// </summary>
+        /// <returns>A List of place</returns>
+        /// <response code="200"></response>
+        [HttpGet]
 		public async Task<IList<PlaceViewModel>> GetPlaces()
 		{
 			return await PlaceService.GetPlaces();
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> PostPlace([FromBody] PlaceViewModel placeViewModel)
+        /// <summary>
+        /// Creates a place.
+        /// </summary>
+        /// <param name="postPlace"></param>
+        /// <returns>A newly created place</returns>
+        /// <remarks>
+        /// Sample request:
+        ///     POST /Appointment
+        ///     {
+        ///        "address": "string",
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Return void</response>
+        /// <response code="400">Input parameters are not valid</response>
+        [HttpPost]
+		public async Task<ActionResult> PostPlace(PlaceForInsertViewModel postPlace)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest();
 			}
 
-			try
-			{
-				Logger.LogInformation("Log message in the PostPlace() method");
-				await PlaceService.InsertPlace(placeViewModel);
-				return Created("", null);
-			}
-			catch (Exception)
-			{
-				return StatusCode(StatusCodes.Status500InternalServerError,
-					"Error creating new place record");
-			}
-		}
+			var placeCreated = await PlaceService.InsertPlace(postPlace);
+            return CreatedAtRoute("GetPlace",
+				new
+				{
+                   placeId = placeCreated.PlaceId,
+				}, placeCreated);
+        }
 	}
 }

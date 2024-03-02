@@ -2,9 +2,8 @@
 
 namespace NewDogTinder.ViewModels
 {
-	public class DogViewModel
+	public class DogForInsertViewModel
 	{
-		public int DogId { get; set; }
 		[Required]
 		[MaxLength(200)]
 		public string Name { get; set; }
@@ -13,7 +12,5 @@ namespace NewDogTinder.ViewModels
 		public string Breed { get; set; }
 		[Required]
 		public int  OwnerId { get; set; }
-
-		public OwnerViewModel Owner { get; set; }
 	}
 }

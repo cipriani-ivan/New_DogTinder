@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.ViewModels;
 
 namespace NewDogTinder.Services.IService
 {
-	public interface IDogService
+    public interface IDogService
 	{
-		Task<IList<DogViewModel>> GetDogs();
-		Task InsertDog(DogViewModel dogViewmodel);
-	}
+		Task<DogViewModel> GetDog(int dogId);
+        Task<IList<DogViewModel>> GetDogs();
+        Task<Dog> InsertDog(DogForInsertViewModel dogViewmodel);
+    }
 }

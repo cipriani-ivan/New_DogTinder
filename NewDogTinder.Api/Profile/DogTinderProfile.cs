@@ -50,8 +50,10 @@ namespace NewDogTinder.Profile
             CreateMap<OwnerForInsertViewModel, Owner>();
             CreateMap<Place, PlaceViewModel>();
 			CreateMap<PlaceViewModel, Place>();
-			CreateMap<Dog, DogViewModel>();
+            CreateMap<PlaceForInsertViewModel, Place>();
+            CreateMap<Dog, DogViewModel>();
 			CreateMap<DogViewModel, Dog>();
-		}			
+            CreateMap<DogForInsertViewModel, Dog>();
+        }			
 	}	
 }

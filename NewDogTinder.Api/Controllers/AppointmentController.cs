@@ -10,25 +10,32 @@ namespace NewNewDogTinder.Api.Controllers
 	public class AppointmentController : ControllerBase
 	{
 		private readonly IAppointmentService AppointmentService;
-		private readonly ILogger Logger;
 
-		public AppointmentController(IAppointmentService appointmentService, ILoggerFactory logFactory)
+		public AppointmentController(IAppointmentService appointmentService)
 		{
 			AppointmentService = appointmentService;
-			Logger = logFactory.CreateLogger<AppointmentController>();
 		}
 
+        /// <summary>
+        /// Get a specific appointment.
+        /// </summary>
+        /// <param name="appointmentId"></param>
+        /// <returns>An appointment</returns>
+        /// <response code="200"></response>
         [HttpGet("{appointmentid}", Name = "GetAppointment")]
         public async Task<AppointmentViewModel> GetAppointment(int appointmentId)
         {
-            Logger.LogInformation("Log message in the GetAppointments() method");
-            return (await AppointmentService.GetAppointment(appointmentId));
+            return await AppointmentService.GetAppointment(appointmentId);
         }
 
+        /// <summary>
+        /// Get all appointments.
+        /// </summary>
+        /// <returns>A list of appointments</returns>
+        /// <response code="200"></response>
         [HttpGet]
 		public async Task<List<AppointmentViewModel>> GetAppointments()
 		{
-			Logger.LogInformation("Log message in the GetAppointments() method");
 			return (await AppointmentService.GetAppointments()).ToList();
 		}
 
@@ -48,7 +55,7 @@ namespace NewNewDogTinder.Api.Controllers
         ///
         /// </remarks>
         /// <response code="201">Return void</response>
-        /// <response code="400">If the item is null</response>
+        /// <response code="400">Input parameters are not valid</response>
         [HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -59,7 +66,6 @@ namespace NewNewDogTinder.Api.Controllers
 				return BadRequest();
 			}
 
-			Logger.LogInformation("Log message in the PostAppointment() method");
 			var appointmentCreated = await AppointmentService.InsertAppointment(postAppointment);
 			return CreatedAtRoute("GetAppointment",
                 new
@@ -68,28 +74,24 @@ namespace NewNewDogTinder.Api.Controllers
                 }, appointmentCreated);
 		}
 
-		/// <summary>
-		/// Update an appointment.
-		/// </summary>
-		/// <param name="UpdateAppointment"></param>
-		/// <returns>A newly created appointment</returns>
-		/// <remarks>
-		/// Sample request:
-		///     Patch /Appointment
-		///     {
-		///        "appointment": 1,
-		///        "time": "2022-05-20",
-		///        "placeId": 1,
-		///        "dogId": 1
-		///     }
-		///
-		/// </remarks>
-		/// <response code="204">Return void</response>
-		/// <response code="400">If the item is null</response>
-		[HttpPut]
-		[ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        /// <summary>
+        /// Update an appointment.
+        /// </summary>
+        /// <param name="updateAppointment"></param>
+        /// <remarks>
+        /// Sample request:
+        ///     Put /Appointment
+        ///     {
+        ///        "appointment": 1,
+        ///        "time": "2022-05-20",
+        ///        "placeId": 1,
+        ///        "dogId": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Return void</response>
+        /// <response code="400">Input parameters are not valid</response>
+        [HttpPut]
 		public async Task<ActionResult> UpdateAppointment(AppointmentForUpdateViewModel updateAppointment)
 		{
 			if (!ModelState.IsValid)
@@ -97,7 +99,6 @@ namespace NewNewDogTinder.Api.Controllers
 				return BadRequest();
 			}
 
-			Logger.LogInformation("Log message in the PostAppointment() method");
 			var appointmentUpdate = await AppointmentService.UpdateAppointment(updateAppointment);
 			if(appointmentUpdate != null)
 			{
@@ -108,15 +109,14 @@ namespace NewNewDogTinder.Api.Controllers
 		}
 
         /// <summary>
-        /// Update an appointment.
+        /// Update partially an appointment.
         /// </summary>
         /// <param name="patchAppointment"></param>
-        /// <returns>A newly created appointment</returns>
+        /// <param name="appointmentId"></param>
         /// <remarks>
         /// Sample request:
         ///     Patch /Appointment
         ///     {
-        ///        "appointment": 1,
         ///        "time": "2022-05-20",
         ///        "placeId": 1,
         ///        "dogId": 1
@@ -124,11 +124,9 @@ namespace NewNewDogTinder.Api.Controllers
         ///
         /// </remarks>
         /// <response code="204">Return void</response>
-        /// <response code="400">If the item is null</response>
+        /// <response code="400">Input parameters are not valid</response>
+        /// <response code="404">Not found</response>
         [HttpPatch]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> PatchAppointment(int appointmentId, JsonPatchDocument<AppointmentForUpdateViewModel> patchAppointment)
         {
             if (!ModelState.IsValid)
@@ -153,21 +151,9 @@ namespace NewNewDogTinder.Api.Controllers
         /// <summary>
         /// Update an appointment.
         /// </summary>
-        /// <param name="appointment"></param>
-        /// <returns>A newly created appointment</returns>
-        /// <remarks>
-        /// Sample request:
-        ///     Delete /Appointment
-        ///     {
-        ///        "appointment": 1,
-        ///        "time": "2022-05-20",
-        ///        "placeId": 1,
-        ///        "dogId": 1
-        ///     }
-        ///
-        /// </remarks>
+        /// <param name="appointmentId"></param>
         /// <response code="200">Return void</response>
-        /// <response code="400">If the item is null</response>
+        /// <response code="404">Not found</response>
         [HttpDelete]
 		[ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
