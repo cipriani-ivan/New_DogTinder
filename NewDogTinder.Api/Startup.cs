@@ -1,11 +1,14 @@
 using DogTinder.Repository.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using NewDogTinder.EFDataAccessLibrary.DataAccess;
 using NewDogTinder.Repository.IRepositories;
 using NewDogTinder.Repository.Repositories;
 using NewDogTinder.Services.IService;
 using NewDogTinder.Services.Service;
 using System.Reflection;
+using System.Text;
 
 namespace NewDogTinder
 {
@@ -48,6 +51,49 @@ namespace NewDogTinder
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
                 setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
+                setupAction.AddSecurityDefinition("NewDogTinderInfoApiBearerAuth", new OpenApiSecurityScheme()
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    Description = "Input a valid token to access this API"
+                });
+
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "NewDogTinderInfoApiBearerAuth" }
+                        }, new List<string>() }
+                });
+            });
+
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Authentication:Issuer"],
+                    ValidAudience = Configuration["Authentication:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.ASCII.GetBytes(Configuration["Authentication:SecretForKey"]))
+                };
+            }
+            );
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MustBeFromTrondheim", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("city", "Trondheim");
+                });
             });
         }
 
@@ -70,6 +116,8 @@ namespace NewDogTinder
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

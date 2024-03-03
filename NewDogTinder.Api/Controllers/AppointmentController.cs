@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using NewDogTinder.Services.IService;
 using NewDogTinder.ViewModels;
@@ -6,7 +7,8 @@ using NewDogTinder.ViewModels;
 namespace NewNewDogTinder.Api.Controllers
 {
     [ApiController]
-	[Route("[controller]")]
+    [Authorize(Policy = "MustBeFromTrondheim")]
+    [Route("[controller]")]
 	public class AppointmentController : ControllerBase
 	{
 		private readonly IAppointmentService AppointmentService;
@@ -22,7 +24,11 @@ namespace NewNewDogTinder.Api.Controllers
         /// <param name="appointmentId"></param>
         /// <returns>An appointment</returns>
         /// <response code="200"></response>
-        [HttpGet("{appointmentid}", Name = "GetAppointment")]
+        /// <response code="403">You have to live in Trondheim</response>
+        [HttpGet("{appointmentId}", Name = "GetAppointment")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<AppointmentViewModel> GetAppointment(int appointmentId)
         {
             return await AppointmentService.GetAppointment(appointmentId);
@@ -33,8 +39,12 @@ namespace NewNewDogTinder.Api.Controllers
         /// </summary>
         /// <returns>A list of appointments</returns>
         /// <response code="200"></response>
+        /// <response code="403">You have to live in Trondheim</response>
         [HttpGet]
-		public async Task<List<AppointmentViewModel>> GetAppointments()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<List<AppointmentViewModel>> GetAppointments()
 		{
 			return (await AppointmentService.GetAppointments()).ToList();
 		}
@@ -56,10 +66,13 @@ namespace NewNewDogTinder.Api.Controllers
         /// </remarks>
         /// <response code="201">Return void</response>
         /// <response code="400">Input parameters are not valid</response>
+        /// <response code="403">You have to live in Trondheim</response>
         [HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<ActionResult> PostAppointment(AppointmentForInsertViewModel postAppointment)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> PostAppointment(AppointmentForInsertViewModel postAppointment)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -91,8 +104,15 @@ namespace NewNewDogTinder.Api.Controllers
         /// </remarks>
         /// <response code="204">Return void</response>
         /// <response code="400">Input parameters are not valid</response>
+        /// <response code="404">Not found</response>
+        /// <response code="403">You have to live in Trondheim</response>
         [HttpPut]
-		public async Task<ActionResult> UpdateAppointment(AppointmentForUpdateViewModel updateAppointment)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult> UpdateAppointment(AppointmentForUpdateViewModel updateAppointment)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -126,7 +146,13 @@ namespace NewNewDogTinder.Api.Controllers
         /// <response code="204">Return void</response>
         /// <response code="400">Input parameters are not valid</response>
         /// <response code="404">Not found</response>
+        /// <response code="403">You have to live in Trondheim</response>
         [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> PatchAppointment(int appointmentId, JsonPatchDocument<AppointmentForUpdateViewModel> patchAppointment)
         {
             if (!ModelState.IsValid)
@@ -154,9 +180,12 @@ namespace NewNewDogTinder.Api.Controllers
         /// <param name="appointmentId"></param>
         /// <response code="200">Return void</response>
         /// <response code="404">Not found</response>
+        /// <response code="403">You have to live in Trondheim</response>
         [HttpDelete]
 		[ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> DeleteAppointment(int appointmentId)
 		{
             if (await AppointmentService.DeleteAppointment(appointmentId)) 

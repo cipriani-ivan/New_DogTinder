@@ -21,7 +21,7 @@ namespace NewNewDogTinder.Api.Controllers
         /// <param name="dogId"></param>
         /// <returns>A specific dog with the owner</returns>
         /// <response code="200"></response>
-        [HttpGet("{dogid}", Name = "GetDog")]
+        [HttpGet("{dogId}", Name = "GetDog")]
         public async Task<DogViewModel> GetDog(int dogId)
         {
             return await DogService.GetDog(dogId);

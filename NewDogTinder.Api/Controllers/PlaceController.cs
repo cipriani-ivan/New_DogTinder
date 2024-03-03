@@ -23,7 +23,7 @@ namespace NewNewDogTinder.Api.Controllers
         /// <param name="placeid"></param>
         /// <returns>A place</returns>
         /// <response code="200"></response>
-        [HttpGet("{placeid}", Name = "GetPlace")]
+        [HttpGet("{placeId}", Name = "GetPlace")]
         public async Task<PlaceViewModel> GetAppointment(int placeid)
         {
             return await PlaceService.GetPlace(placeid);
