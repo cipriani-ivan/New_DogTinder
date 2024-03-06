@@ -10,7 +10,6 @@ namespace Service.UnitTest
 {
     public class AppointmentUnitTest
     {
-
         private readonly AppointmentService AppointmentService;
         private static IMapper Mapper;
 
@@ -25,29 +24,25 @@ namespace Service.UnitTest
             Mapper = new Mapper(config);
 
             var appointmentsData = new List<Appointment>() {
-
                 new Appointment{
                     AppointmentId = 1,
                     Time = DateTime.Now,
                     Place = new Place
                     {
                         PlaceId = 1,
-                        Address = "Ockenburg"
+                        Address = "Nonnegate"
                     },
-                    Dog =
-
-                        new Dog()
+                    Dog = new Dog()
+                    {
+                        DogId = 1,
+                        Name = "Diabolik",
+                        Breed = "German Shorthair Pointer",
+                        Owner = new Owner()
                         {
-                            DogId = 1,
-                            Name = "Diablolik",
-                            Breed = "German Shorthair Pointer",
-                            Owner = new Owner()
-                            {
-                                Name = "Ivan",
-                                OwnerId = 1
-                            }
+                            Name = "Ivan",
+                            OwnerId = 1
                         }
-
+                    }
                 },
                 new Appointment{
                     AppointmentId = 2,
@@ -55,23 +50,21 @@ namespace Service.UnitTest
                     Place = new Place
                     {
                         PlaceId = 1,
-                        Address = "Ockenburg"
+                        Address = "Nonnegate"
                     },
-                    Dog =
-
-                        new Dog()
+                    Dog = new Dog()
+                    {
+                        DogId = 1,
+                        Name = "Diabolik",
+                        Breed = "German Shorthair Pointer",
+                        Owner = new Owner()
                         {
-                            DogId = 1,
-                            Name = "Diablolik",
-                            Breed = "German Shorthair Pointer",
-                            Owner = new Owner()
-                            {
-                                Name = "Ivan",
-                                OwnerId = 1
-                            }
+                            Name = "Ivan",
+                            OwnerId = 1
                         }
+                    }
                 }
-             };
+            };
 
             var appointmentRepositoryMock = new Mock<IAppointmentRepository>();
             appointmentRepositoryMock.Setup(x => x.GetAll()).ReturnsAsync(appointmentsData);
@@ -86,10 +79,9 @@ namespace Service.UnitTest
 
             // Assert
             Assert.Equal(2, appointmentViewModel.Count);
-            Assert.Equal("Diablolik", appointmentViewModel[1].Dog.Name);
-            Assert.Equal("Ockenburg", appointmentViewModel[1].Place.Address);
+            Assert.Equal("Diabolik", appointmentViewModel[1].Dog.Name);
+            Assert.Equal("Nonnegate", appointmentViewModel[1].Place.Address);
         }
-
     }
 }
 

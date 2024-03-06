@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Re
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2F9D914-013E-4967-8A47-0D6407A18A00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.UnitTest", "Service.UnitTest\Service.UnitTest.csproj", "{CE6E3B3D-7005-490F-9983-C05FDDA635A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.IntegrationTest", "Api.IntegrationTest\Api.IntegrationTest.csproj", "{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{836D1DF9-A50E-430A-BCEC-5C0EDCF8738E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{836D1DF9-A50E-430A-BCEC-5C0EDCF8738E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{836D1DF9-A50E-430A-BCEC-5C0EDCF8738E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE6E3B3D-7005-490F-9983-C05FDDA635A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE6E3B3D-7005-490F-9983-C05FDDA635A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE6E3B3D-7005-490F-9983-C05FDDA635A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE6E3B3D-7005-490F-9983-C05FDDA635A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
