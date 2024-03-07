@@ -32,4 +32,19 @@ public class Appointment : IClassFixture<TestWebApplicationFactory<Program>>
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
+
+    [Fact]
+    public async Task AppointmentTodoWithValidParameters()
+    {// Arrange
+        var client = _factory.CreateClient(
+            new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
+
+
+        var response = await client.GetAsync("/appointment");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }

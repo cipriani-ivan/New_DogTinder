@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,8 +23,11 @@ public class TestWebApplicationFactory<TProgram>
 
             services.AddDbContext<NewDogTinderContext>(options =>
             {
-                options.UseSqlite("Data Source=NewDogTinder.db");
+                string workingDirectory = Environment.CurrentDirectory;
+                string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
+                options.UseSqlite($"Data Source={Path.Join(projectDirectory, "NewDogTinder.Api\\NewDogTinder.db")}");
             });
+            services.AddAuthentication(defaultScheme: "TestScheme").AddScheme<AuthenticationSchemeOptions, TestAuthHandler>("TestScheme", options => { });
         });
 
         return base.CreateHost(builder);
