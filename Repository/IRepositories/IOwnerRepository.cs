@@ -1,9 +1,6 @@
-﻿using NewDogTinder.EFDataAccessLibrary.Models;
+﻿namespace NewDogTinder.Repository.IRepositories;
 
-namespace NewDogTinder.Repository.IRepositories
+public interface IOwnerRepository: IGenericRepository<Owner>
 {
-	public interface IOwnerRepository: IGenericRepository<Owner>
-	{
-        Task<Owner> Get(int ownerId);
-    }
+    Task<Owner> Get(int ownerId);
 }

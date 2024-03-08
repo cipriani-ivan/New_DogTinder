@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NewDogTinder.EFDataAccessLibrary.DataAccess;
 
-namespace Api.IntegrationTest.Helpers;
+namespace NewDogTinder.Controller.IntegrationTest.Helpers;
 
 public class TestWebApplicationFactory<TProgram>
     : WebApplicationFactory<TProgram> where TProgram : class

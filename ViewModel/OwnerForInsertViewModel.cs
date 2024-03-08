@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace NewDogTinder.ViewModels;
 
-namespace NewDogTinder.ViewModels
+public class OwnerForInsertViewModel
 {
-	public class OwnerForInsertViewModel
-	{
-		[Required]
-		[MaxLength(200)]
-		public string Name { get; set; }
-	}
+	[Required]
+	[MaxLength(200)]
+	public string Name { get; set; }
 }

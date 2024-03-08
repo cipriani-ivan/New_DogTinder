@@ -1,9 +1,6 @@
-﻿using NewDogTinder.EFDataAccessLibrary.Models;
+﻿namespace NewDogTinder.Repository.IRepositories;
 
-namespace NewDogTinder.Repository.IRepositories
+public interface IPlaceRepository: IGenericRepository<Place>
 {
-	public interface IPlaceRepository: IGenericRepository<Place>
-	{
-        Task<Place> Get(int placeId);
-    }
+    Task<Place> Get(int placeId);
 }

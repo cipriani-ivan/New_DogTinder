@@ -1,12 +1,8 @@
-﻿using NewDogTinder.EFDataAccessLibrary.Models;
-using NewDogTinder.ViewModels;
+﻿namespace NewDogTinder.Services.IService;
 
-namespace NewDogTinder.Services.IService
+public interface IPlaceService
 {
-    public interface IPlaceService
-	{
-		Task<PlaceViewModel> GetPlace(int placeId);
-        Task<IList<PlaceViewModel>> GetPlaces();
-		Task<Place> InsertPlace(PlaceForInsertViewModel placeViewmodel);
-	}
+	Task<PlaceViewModel> GetPlace(int placeId);
+    Task<IList<PlaceViewModel>> GetPlaces();
+	Task<Place> InsertPlace(PlaceForInsertViewModel placeViewmodel);
 }

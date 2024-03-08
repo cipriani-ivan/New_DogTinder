@@ -1,17 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace NewDogTinder.EFDataAccessLibrary.Models;
 
-namespace NewDogTinder.EFDataAccessLibrary.Models
+public class Appointment
 {
-    public class Appointment
-	{
-		public int AppointmentId { get; set; }
-		[Required]
-		public DateTime Time { get; set; }
+	public int AppointmentId { get; set; }
+	[Required]
+	public DateTime Time { get; set; }
 
-		[Required]
-		public Place Place { get; set; }
-		
-		[Required]
-		public Dog Dog { get; set; }
-	}
+	[Required]
+	public Place Place { get; set; }
+	
+	[Required]
+	public Dog Dog { get; set; }
 }

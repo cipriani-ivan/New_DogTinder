@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service\Service.csproj" />
-    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+    <ProjectReference Include="..\Service\NewDogTinderService.csproj" />
+    <ProjectReference Include="..\ViewModel\NewDogTinder.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

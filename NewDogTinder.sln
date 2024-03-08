@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Api", "NewDogTinder.Api\NewDogTinder.Api.csproj", "{4F92B489-2063-4A62-AA5D-EF25C6AD0545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller", "NewDogTinder.Api\NewDogTinder.Controller.csproj", "{4F92B489-2063-4A62-AA5D-EF25C6AD0545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{CC86A489-6A66-4DE1-806B-6511B2A37B04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinderService", "Service\NewDogTinderService.csproj", "{CC86A489-6A66-4DE1-806B-6511B2A37B04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{CF0426B8-799E-4B22-ABB3-53B82BA59B14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.ViewModel", "ViewModel\NewDogTinder.ViewModel.csproj", "{CF0426B8-799E-4B22-ABB3-53B82BA59B14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFDataAccessLibrary", "EFDataAccessLibrary\EFDataAccessLibrary.csproj", "{81B5A016-573B-4C06-BD5D-34F0DBEE91A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.EFDataAccessLibrary", "EFDataAccessLibrary\NewDogTinder.EFDataAccessLibrary.csproj", "{81B5A016-573B-4C06-BD5D-34F0DBEE91A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{836D1DF9-A50E-430A-BCEC-5C0EDCF8738E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Repository", "Repository\NewDogTinder.Repository.csproj", "{836D1DF9-A50E-430A-BCEC-5C0EDCF8738E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2F9D914-013E-4967-8A47-0D6407A18A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.UnitTest", "Service.UnitTest\Service.UnitTest.csproj", "{CE6E3B3D-7005-490F-9983-C05FDDA635A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Service.UnitTest", "Service.UnitTest\NewDogTinder.Service.UnitTest.csproj", "{CE6E3B3D-7005-490F-9983-C05FDDA635A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.IntegrationTest", "Api.IntegrationTest\Api.IntegrationTest.csproj", "{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller.IntegrationTest", "Api.IntegrationTest\NewDogTinder.Controller.IntegrationTest.csproj", "{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

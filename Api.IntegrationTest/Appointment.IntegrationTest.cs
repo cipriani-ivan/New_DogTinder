@@ -1,12 +1,7 @@
-using Api.IntegrationTest.Helpers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using NewDogTinder;
+using NewDogTinder.Controller.IntegrationTest.Helpers;
 using System.Net;
-using System.Net.Http.Json;
 
-namespace IntegrationTests;
+namespace NewDogTinder.Controller.IntegrationTest;
 
 [Collection("Sequential")]
 public class Appointment : IClassFixture<TestWebApplicationFactory<Program>>
@@ -16,21 +11,6 @@ public class Appointment : IClassFixture<TestWebApplicationFactory<Program>>
     public Appointment(TestWebApplicationFactory<Program> factory)
     {
         _factory = factory;
-    }
-
-    [Fact]
-    public async Task PostTodoWithValidParameters()
-    {// Arrange
-        var client = _factory.CreateClient(
-            new WebApplicationFactoryClientOptions
-            {
-                AllowAutoRedirect = false
-            });
-
-
-        var response = await client.GetAsync("/dog");
-
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Fact]

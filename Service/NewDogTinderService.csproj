@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFDataAccessLibrary\EFDataAccessLibrary.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
-    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+    <ProjectReference Include="..\EFDataAccessLibrary\NewDogTinder.EFDataAccessLibrary.csproj" />
+    <ProjectReference Include="..\Repository\NewDogTinder.Repository.csproj" />
+    <ProjectReference Include="..\ViewModel\NewDogTinder.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

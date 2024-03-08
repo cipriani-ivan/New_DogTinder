@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>NewDogTinder.Api</name>
+        <name>NewDogTinder.Controller</name>
     </assembly>
     <members>
         <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.GetAppointment(System.Int32)">

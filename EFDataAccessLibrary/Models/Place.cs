@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace NewDogTinder.EFDataAccessLibrary.Models;
 
-namespace NewDogTinder.EFDataAccessLibrary.Models
+public class Place
 {
-	public class Place
-	{
-		public int PlaceId { get; set; }
-		[Required]
-		[MaxLength(200)]
-		public string Address { get; set; }
-	}
+	public int PlaceId { get; set; }
+	[Required]
+	[MaxLength(200)]
+	public string Address { get; set; }
 }

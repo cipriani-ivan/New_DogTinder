@@ -5,17 +5,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<IsPackable>false</IsPackable>
-
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.27" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
       <PrivateAssets>all</PrivateAssets>
@@ -24,8 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFDataAccessLibrary\EFDataAccessLibrary.csproj" />
-    <ProjectReference Include="..\NewDogTinder.Api\NewDogTinder.Api.csproj" />
+    <ProjectReference Include="..\EFDataAccessLibrary\NewDogTinder.EFDataAccessLibrary.csproj" />
+    <ProjectReference Include="..\NewDogTinder.Api\NewDogTinder.Controller.csproj" />
+    <ProjectReference Include="..\Repository\NewDogTinder.Repository.csproj" />
+    <ProjectReference Include="..\Service\NewDogTinderService.csproj" />
   </ItemGroup>
 
 </Project>

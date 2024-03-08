@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFDataAccessLibrary\EFDataAccessLibrary.csproj" />
+    <ProjectReference Include="..\EFDataAccessLibrary\NewDogTinder.EFDataAccessLibrary.csproj" />
   </ItemGroup>
 
 </Project>

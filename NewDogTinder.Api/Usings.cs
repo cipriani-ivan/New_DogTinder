@@ -1,0 +1,17 @@
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.JsonPatch;
+global using Microsoft.AspNetCore.Mvc;
+global using NewDogTinder.Services.IService;
+global using NewDogTinder.ViewModels;
+global using DogTinder.Repository.Repositories;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi.Models;
+global using NewDogTinder.EFDataAccessLibrary.DataAccess;
+global using NewDogTinder.Repository.IRepositories;
+global using NewDogTinder.Repository.Repositories;
+global using NewDogTinder.Services.Service;
+global using Serilog;
+global using System.Reflection;
+global using System.Text;
+global using NewDogTinder.EFDataAccessLibrary.Models;

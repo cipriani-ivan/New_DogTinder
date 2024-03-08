@@ -1,17 +1,3 @@
-using DogTinder.Repository.Repositories;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using NewDogTinder.EFDataAccessLibrary.DataAccess;
-using NewDogTinder.Repository.IRepositories;
-using NewDogTinder.Repository.Repositories;
-using NewDogTinder.Services.IService;
-using NewDogTinder.Services.Service;
-using NewDogTinder;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()

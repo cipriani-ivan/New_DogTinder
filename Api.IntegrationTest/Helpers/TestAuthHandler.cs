@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Api.IntegrationTest.Helpers;
-
+namespace NewDogTinder.Controller.IntegrationTest.Helpers;
 
 public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
