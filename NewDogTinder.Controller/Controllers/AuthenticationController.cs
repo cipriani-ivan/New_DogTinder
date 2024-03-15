@@ -1,7 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace NewNewDogTinder.Api.Controllers;
+namespace NewDogTinder.Controller.Controllers;
 
 [Route("[controller]")]
 [ApiController]

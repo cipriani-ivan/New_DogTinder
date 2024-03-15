@@ -2,37 +2,44 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewDogTinder.EFDataAccessLibrary.DataAccess;
 
 #nullable disable
 
-namespace EFDataAccessLibrary.Migrations
+namespace NewDogTinder.EFDataAccessLibrary.Migrations
 {
     [DbContext(typeof(NewDogTinderContext))]
-    [Migration("20240224204527_NewTiderDogInitialMigration")]
-    partial class NewTiderDogInitialMigration
+    [Migration("20240315173439_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.27");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.27")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("NewDogTinder.EFDataAccessLibrary.Models.Appointment", b =>
                 {
                     b.Property<int>("AppointmentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentId"), 1L, 1);
 
                     b.Property<int>("DogId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("PlaceId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Time")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AppointmentId");
 
@@ -47,20 +54,22 @@ namespace EFDataAccessLibrary.Migrations
                 {
                     b.Property<int>("DogId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DogId"), 1L, 1);
 
                     b.Property<string>("Breed")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("OwnerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("DogId");
 
@@ -73,12 +82,14 @@ namespace EFDataAccessLibrary.Migrations
                 {
                     b.Property<int>("OwnerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OwnerId"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("OwnerId");
 
@@ -89,12 +100,14 @@ namespace EFDataAccessLibrary.Migrations
                 {
                     b.Property<int>("PlaceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlaceId"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("PlaceId");
 
@@ -104,7 +117,7 @@ namespace EFDataAccessLibrary.Migrations
             modelBuilder.Entity("NewDogTinder.EFDataAccessLibrary.Models.Appointment", b =>
                 {
                     b.HasOne("NewDogTinder.EFDataAccessLibrary.Models.Dog", "Dog")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -129,11 +142,6 @@ namespace EFDataAccessLibrary.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("NewDogTinder.EFDataAccessLibrary.Models.Dog", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

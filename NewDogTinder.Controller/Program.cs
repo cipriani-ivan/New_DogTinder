@@ -1,3 +1,5 @@
+using NewDogTinder.Controller;
+
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -14,6 +16,8 @@ builder.Services.AddControllers(options =>
 }).AddNewtonsoftJson()
 .AddXmlDataContractSerializerFormatters();
 
+builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(nameof(DatabaseOptions)));
+
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IDogRepository, DogRepository>();
 builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
@@ -24,10 +28,12 @@ builder.Services.AddTransient<IDogService, DogService>();
 builder.Services.AddTransient<IOwnerService, OwnerService>();
 builder.Services.AddTransient<IPlaceService, PlaceService>();
 
-builder.Services.AddDbContext<NewDogTinderContext>(options =>
+builder.Services.AddDbContext<NewDogTinderContext>(optionsBuilder =>
 {
-    options.UseSqlite(builder.Configuration["ConnectionStrings:NewDogTinder"]);
+    var cns = builder.Configuration.GetSection(nameof(DatabaseOptions)).Get<DatabaseOptions>().ConnectionString;
+    optionsBuilder.UseSqlServer(cns);
 });
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSwaggerGen(setupAction =>
 {

@@ -4,7 +4,7 @@
         <name>NewDogTinder.Controller</name>
     </assembly>
     <members>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.GetAppointment(System.Int32)">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.GetAppointment(System.Int32)">
             <summary>
             Get a specific appointment.
             </summary>
@@ -13,7 +13,7 @@
             <response code="200"></response>
             <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.GetAppointments">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.GetAppointments">
             <summary>
             Get all appointments.
             </summary>
@@ -21,7 +21,7 @@
             <response code="200"></response>
             <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PostAppointment(NewDogTinder.ViewModels.AppointmentForInsertViewModel)">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.PostAppointment(NewDogTinder.ViewModels.AppointmentForInsertViewModel)">
              <summary>
              Creates an appointment.
              </summary>
@@ -41,7 +41,7 @@
              <response code="400">Input parameters are not valid</response>
              <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.UpdateAppointment(NewDogTinder.ViewModels.AppointmentForUpdateViewModel)">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.UpdateAppointment(NewDogTinder.ViewModels.AppointmentForUpdateViewModel)">
              <summary>
              Update an appointment.
              </summary>
@@ -62,7 +62,7 @@
              <response code="404">Not found</response>
              <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.PatchAppointment(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{NewDogTinder.ViewModels.AppointmentForUpdateViewModel})">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.PatchAppointment(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{NewDogTinder.ViewModels.AppointmentForUpdateViewModel})">
              <summary>
              Update partially an appointment.
              </summary>
@@ -83,7 +83,7 @@
              <response code="404">Not found</response>
              <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.AppointmentController.DeleteAppointment(System.Int32)">
+        <member name="M:NewDogTinder.Controller.Controllers.AppointmentController.DeleteAppointment(System.Int32)">
             <summary>
             Update an appointment.
             </summary>
@@ -92,7 +92,7 @@
             <response code="404">Not found</response>
             <response code="403">You have to live in Trondheim</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.DogController.GetDog(System.Int32)">
+        <member name="M:NewDogTinder.Controller.Controllers.DogController.GetDog(System.Int32)">
             <summary>
             Get a specific dog with the owner.
             </summary>
@@ -100,14 +100,14 @@
             <returns>A specific dog with the owner</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.DogController.GetDogs">
+        <member name="M:NewDogTinder.Controller.Controllers.DogController.GetDogs">
             <summary>
             Get all dogs included owner.
             </summary>
             <returns>A list of dogs with the owner</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.DogController.PostDog(NewDogTinder.ViewModels.DogForInsertViewModel)">
+        <member name="M:NewDogTinder.Controller.Controllers.DogController.PostDog(NewDogTinder.ViewModels.DogForInsertViewModel)">
              <summary>
              Creates a dog.
              </summary>
@@ -126,7 +126,7 @@
              <response code="201">Return void</response>
              <response code="400">Input parameters are not valid</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.OwnerController.GetOwner(System.Int32)">
+        <member name="M:NewDogTinder.Controller.Controllers.OwnerController.GetOwner(System.Int32)">
             <summary>
             Get specific owner.
             </summary>
@@ -134,7 +134,7 @@
             <returns>Owner</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.OwnerController.GetOwners">
+        <member name="M:NewDogTinder.Controller.Controllers.OwnerController.GetOwners">
             <summary>
             Get all the owners.
             </summary>
@@ -142,7 +142,7 @@
             <returns>A list of owners</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.OwnerController.PostOwner(NewDogTinder.ViewModels.OwnerForInsertViewModel)">
+        <member name="M:NewDogTinder.Controller.Controllers.OwnerController.PostOwner(NewDogTinder.ViewModels.OwnerForInsertViewModel)">
              <summary>
              Creates an owner.
              </summary>
@@ -159,7 +159,7 @@
              <response code="201">Return void</response>
              <response code="400">Input parameters are not valid</response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.PlaceController.GetAppointment(System.Int32)">
+        <member name="M:NewDogTinder.Controller.Controllers.PlaceController.GetAppointment(System.Int32)">
             <summary>
             Get a specific place.
             </summary>
@@ -167,14 +167,14 @@
             <returns>A place</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.PlaceController.GetPlaces">
+        <member name="M:NewDogTinder.Controller.Controllers.PlaceController.GetPlaces">
             <summary>
             Get all the places.
             </summary>
             <returns>A List of place</returns>
             <response code="200"></response>
         </member>
-        <member name="M:NewNewDogTinder.Api.Controllers.PlaceController.PostPlace(NewDogTinder.ViewModels.PlaceForInsertViewModel)">
+        <member name="M:NewDogTinder.Controller.Controllers.PlaceController.PostPlace(NewDogTinder.ViewModels.PlaceForInsertViewModel)">
              <summary>
              Creates a place.
              </summary>

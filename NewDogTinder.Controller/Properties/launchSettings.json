@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "NewNewDogTinder.Api": {
+    "NewDogTinder.Controller": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,

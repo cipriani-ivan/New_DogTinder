@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller", "NewDogTinder.Api\NewDogTinder.Controller.csproj", "{4F92B489-2063-4A62-AA5D-EF25C6AD0545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller", "NewDogTinder.Controller\NewDogTinder.Controller.csproj", "{4F92B489-2063-4A62-AA5D-EF25C6AD0545}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinderService", "Service\NewDogTinderService.csproj", "{CC86A489-6A66-4DE1-806B-6511B2A37B04}"
 EndProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Service.UnitTest", "Service.UnitTest\NewDogTinder.Service.UnitTest.csproj", "{CE6E3B3D-7005-490F-9983-C05FDDA635A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller.IntegrationTest", "Api.IntegrationTest\NewDogTinder.Controller.IntegrationTest.csproj", "{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller.IntegrationTest", "NewDogTinder.Controller.IntegrationTest\NewDogTinder.Controller.IntegrationTest.csproj", "{D69D3156-2A01-4AB7-B73E-D40E1E5F3525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

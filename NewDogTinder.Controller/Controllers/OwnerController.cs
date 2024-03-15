@@ -1,4 +1,4 @@
-﻿namespace NewNewDogTinder.Api.Controllers;
+﻿namespace NewDogTinder.Controller.Controllers;
 
 [ApiController]
 [Route("[controller]")]

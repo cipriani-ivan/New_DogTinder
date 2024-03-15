@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFDataAccessLibrary\NewDogTinder.EFDataAccessLibrary.csproj" />
-    <ProjectReference Include="..\NewDogTinder.Api\NewDogTinder.Controller.csproj" />
+    <ProjectReference Include="..\NewDogTinder.Controller\NewDogTinder.Controller.csproj" />
     <ProjectReference Include="..\Repository\NewDogTinder.Repository.csproj" />
     <ProjectReference Include="..\Service\NewDogTinderService.csproj" />
   </ItemGroup>
