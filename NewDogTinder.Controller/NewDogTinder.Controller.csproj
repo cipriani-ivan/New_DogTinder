@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service\NewDogTinderService.csproj" />
+    <ProjectReference Include="..\Service\NewDogTinder.Service.csproj" />
     <ProjectReference Include="..\ViewModel\NewDogTinder.ViewModel.csproj" />
   </ItemGroup>
 

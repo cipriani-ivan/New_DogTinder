@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NewDogTinder.EFDataAccessLibrary.Models;
 using NewDogTinder.Profile;
 using NewDogTinder.Repository.IRepositories;
 using NewDogTinder.Services.Service;
-using Xunit;
 
 namespace Service.UnitTest;
 
+[TestClass]
 public class AppointmentUnitTest
 {
     private readonly AppointmentService AppointmentService;
@@ -26,7 +28,7 @@ public class AppointmentUnitTest
         var appointmentsData = new List<Appointment>() {
             new Appointment{
                 AppointmentId = 1,
-                Time = DateTime.Now,
+                Time = new DateTime(),
                 Place = new Place
                 {
                     PlaceId = 1,
@@ -46,7 +48,7 @@ public class AppointmentUnitTest
             },
             new Appointment{
                 AppointmentId = 2,
-                Time = DateTime.Now,
+                Time = new DateTime(),
                 Place = new Place
                 {
                     PlaceId = 1,
@@ -55,12 +57,12 @@ public class AppointmentUnitTest
                 Dog = new Dog()
                 {
                     DogId = 1,
-                    Name = "Diabolik",
-                    Breed = "German Shorthair Pointer",
+                    Name = "Eva",
+                    Breed = "Weimaraner",
                     Owner = new Owner()
                     {
-                        Name = "Ivan",
-                        OwnerId = 1
+                        Name = "Adelaide",
+                        OwnerId = 2
                     }
                 }
             }
@@ -71,16 +73,37 @@ public class AppointmentUnitTest
         AppointmentService = new AppointmentService(appointmentRepositoryMock.Object, Mapper);
     }
 
-    [Fact]
+    [TestMethod]
     public async Task AppointmentsGetAllTestMapping()
     {
         // Act
-        var appointmentViewModel = await AppointmentService.GetAppointments();
+        var appointmentsViewModel = await AppointmentService.GetAppointments();
 
         // Assert
-        Assert.Equal(2, appointmentViewModel.Count);
-        Assert.Equal("Diabolik", appointmentViewModel[1].Dog.Name);
-        Assert.Equal("Nonnegate", appointmentViewModel[1].Place.Address);
+        appointmentsViewModel.Should().HaveCount(2);
+        var appointmentOne = appointmentsViewModel[0];
+        appointmentOne.Should().NotBeNull();
+        appointmentOne.AppointmentId.Should().BePositive();
+        appointmentOne.Time.Should().Be(new DateTime());
+        appointmentOne.Place.PlaceId.Should().BePositive();
+        appointmentOne.Place.Address.Should().Be("Nonnegate");
+        appointmentOne.Dog.DogId.Should().BePositive();
+        appointmentOne.Dog.Name.Should().Be("Diabolik");
+        appointmentOne.Dog.Breed.Should().Be("German Shorthair Pointer");
+        appointmentOne.Dog.Owner.OwnerId.Should().BePositive();
+        appointmentOne.Dog.Owner.Name.Should().Be("Ivan");
+
+        var appointmentTwo = appointmentsViewModel[1];
+        appointmentTwo.Should().NotBeNull();
+        appointmentTwo.AppointmentId.Should().BePositive();
+        appointmentTwo.Time.Should().Be(new DateTime());
+        appointmentTwo.Place.PlaceId.Should().BePositive();
+        appointmentTwo.Place.Address.Should().Be("Nonnegate");
+        appointmentTwo.Dog.DogId.Should().BePositive();
+        appointmentTwo.Dog.Name.Should().Be("Eva");
+        appointmentTwo.Dog.Breed.Should().Be("Weimaraner");
+        appointmentTwo.Dog.Owner.OwnerId.Should().BePositive();
+        appointmentTwo.Dog.Owner.Name.Should().Be("Adelaide");
     }
 }
 

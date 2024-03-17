@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Controller", "NewDogTinder.Controller\NewDogTinder.Controller.csproj", "{4F92B489-2063-4A62-AA5D-EF25C6AD0545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinderService", "Service\NewDogTinderService.csproj", "{CC86A489-6A66-4DE1-806B-6511B2A37B04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.Service", "Service\NewDogTinder.Service.csproj", "{CC86A489-6A66-4DE1-806B-6511B2A37B04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewDogTinder.ViewModel", "ViewModel\NewDogTinder.ViewModel.csproj", "{CF0426B8-799E-4B22-ABB3-53B82BA59B14}"
 EndProject
