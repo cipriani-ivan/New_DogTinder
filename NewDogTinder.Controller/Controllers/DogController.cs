@@ -18,9 +18,14 @@ public class DogController : ControllerBase
     /// <returns>A specific dog with the owner</returns>
     /// <response code="200"></response>
     [HttpGet("{dogId}", Name = "GetDog")]
-    public async Task<DogViewModel> GetDog(int dogId)
+    public async Task<ActionResult> GetDog(int dogId)
     {
-        return await DogService.GetDog(dogId);
+        var dog =  await DogService.GetDog(dogId);
+        if (dog == null)
+        {
+            return NotFound();
+        }
+        return Ok(dog);
     }
 
     /// <summary>

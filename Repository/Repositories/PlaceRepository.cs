@@ -11,9 +11,11 @@ public class PlaceRepository : GenericRepository<Place>, IPlaceRepository
 
     public async Task<Place> Get(int placeId)
     {
-        // TODO: create a custom exception 
-        var place = await Context.Places.Where(x => x.PlaceId == placeId).SingleOrDefaultAsync() ??
-            throw new Exception($"Place with id = {placeId} is not present in the database");
-        return place;
+        try
+        {
+            var place = await Context.Places.Where(x => x.PlaceId == placeId).SingleOrDefaultAsync();
+            return place;
+        }
+        catch { return null; }
     }
 }

@@ -13,8 +13,12 @@ public class DogRepository : GenericRepository<Dog>, IDogRepository
 
     public async Task<Dog> Get(int dogId)
     {
-        return await Context.Dogs.Where(x => x.DogId == dogId).Include(a => a.Owner).SingleOrDefaultAsync() ??
-            throw new Exception($"Dog with id = {dogId} is not present in the database");
+        try
+        {
+            var dog = await Context.Dogs.Where(x => x.DogId == dogId).Include(a => a.Owner).SingleOrDefaultAsync();
+            return dog;
+        }
+        catch { return null; }
     }
 
     public Dog Insert(Dog dog, int ownerId)

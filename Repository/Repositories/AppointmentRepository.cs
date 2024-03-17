@@ -14,13 +14,14 @@ public class AppointmentRepository : GenericRepository<Appointment>, IAppointmen
 		Logger = logFactory.CreateLogger<AppointmentRepository>();
 	}
 
-    public async Task<Appointment> Get(int appointmentId)
-    {
-	// TODO: create a custom exception 
-	var appointment = await Context.Appointments.Where(x => x.AppointmentId == appointmentId)
-		.Include(a => a.Place).Include(a => a.Dog).ThenInclude(a => a.Owner).SingleOrDefaultAsync() ??
-		throw new Exception($"Appointment with id = {appointmentId} is not present in the database");
-	return appointment;
+	public async Task<Appointment> Get(int appointmentId)
+	{
+		try {
+			var appointment = await Context.Appointments.Where(x => x.AppointmentId == appointmentId)
+			.Include(a => a.Place).Include(a => a.Dog)?.ThenInclude(a => a.Owner).SingleOrDefaultAsync();
+            return appointment;
+        }
+		catch { return null; }
     }
 
     public async Task<IEnumerable<Appointment>> GetAll()
@@ -32,8 +33,8 @@ public class AppointmentRepository : GenericRepository<Appointment>, IAppointmen
 	{
 		try
 		{
-			var dog = Context.Dogs.First(x => x.DogId == appointment.Dog.DogId);
-			var place = Context.Places.First(x => x.PlaceId == appointment.Place.PlaceId);
+			var dog = Context.Dogs.Where(x => x.DogId == appointment.Dog.DogId).Include(a => a.Owner).First();
+            var place = Context.Places.First(x => x.PlaceId == appointment.Place.PlaceId);
 			appointment.Dog = dog;
 			appointment.Place = place;
 			return Context.Appointments.Add(appointment).Entity;

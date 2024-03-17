@@ -1,4 +1,4 @@
-﻿namespace NewDogTinder.Controller
+﻿namespace NewDogTinder.Controller.Utilities
 {
     public class DatabaseOptions
     {

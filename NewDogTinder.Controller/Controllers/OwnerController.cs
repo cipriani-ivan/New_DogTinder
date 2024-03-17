@@ -18,9 +18,14 @@ public class OwnerController : ControllerBase
     /// <returns>Owner</returns>
     /// <response code="200"></response>
     [HttpGet("{ownerId}", Name = "GetOwner")]
-    public async Task<OwnerViewModel> GetOwner(int ownerId)
+    public async Task<ActionResult> GetOwner(int ownerId)
     {
-        return await OwnerService.GetOwner(ownerId);
+        var owner = await OwnerService.GetOwner(ownerId);
+        if (owner == null)
+        {
+            return NotFound();
+        }
+        return Ok(owner);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-using NewDogTinder.Controller;
+using NewDogTinder.Controller.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -15,6 +15,13 @@ public class Database
         _databaseOptions = databaseOptions.Value;
     }
 
+    public NewDogTinderContext OpenConnection()
+    {
+        var context = new NewDogTinderContext(SetDbContextOptions(_databaseOptions.ConnectionString));
+        context.Database.OpenConnectionAsync();
+        return context;
+    }
+
     public async Task ResetAsync()
     {
         if (_respawner != null)
@@ -67,11 +74,16 @@ public class Database
 
     private static async Task CreateDatabaseAsync(string connection)
     {
-        var contextOptions = new DbContextOptionsBuilder<NewDogTinderContext>()
-            .UseSqlServer(connection)
-            .Options;
+        var contextOptions = SetDbContextOptions(connection);
 
         using var context = new NewDogTinderContext(contextOptions);
         context.Database.Migrate();
+    }
+
+    private static DbContextOptions<NewDogTinderContext> SetDbContextOptions(string connection)
+    {
+        return new DbContextOptionsBuilder<NewDogTinderContext>()
+            .UseSqlServer(connection)
+            .Options;
     }
 }

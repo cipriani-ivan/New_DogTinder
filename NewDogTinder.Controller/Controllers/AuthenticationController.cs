@@ -5,16 +5,9 @@ namespace NewDogTinder.Controller.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class AuthenticationController : ControllerBase
+public partial class AuthenticationController : ControllerBase
 {
     private readonly IConfiguration _configuration;
-
-    // we won't use this outside of this class, so we can scope it to this namespace
-    public class AuthenticationRequestBody
-    {
-        public string? UserName { get; set; }
-        public string? Password { get; set; }
-    }
 
     private class CityInfoUser
     {
@@ -61,12 +54,14 @@ public class AuthenticationController : ControllerBase
             Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"]));
         var signingCredentials = new SigningCredentials(
             securityKey, SecurityAlgorithms.HmacSha256);
-         
-        var claimsForToken = new List<Claim>();
-        claimsForToken.Add(new Claim("given_name", user.FirstName));
-        claimsForToken.Add(new Claim("family_name", user.LastName));
-        claimsForToken.Add(new Claim("city", user.City));
-         
+
+        var claimsForToken = new List<Claim>
+        {
+            new Claim("given_name", user.FirstName),
+            new Claim("family_name", user.LastName),
+            new Claim("city", user.City)
+        };
+
         var jwtSecurityToken = new JwtSecurityToken(
             _configuration["Authentication:Issuer"],
             _configuration["Authentication:Audience"],

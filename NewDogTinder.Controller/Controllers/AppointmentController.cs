@@ -23,9 +23,14 @@
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<AppointmentViewModel> GetAppointment(int appointmentId)
+    public async Task<ActionResult> GetAppointment(int appointmentId)
     {
-        return await AppointmentService.GetAppointment(appointmentId);
+        var appointment = await AppointmentService.GetAppointment(appointmentId);
+        if (appointment == null)
+        {
+            return NotFound();
+        }
+        return Ok(appointment);
     }
 
     /// <summary>
@@ -116,8 +121,8 @@
 		var appointmentUpdate = await AppointmentService.UpdateAppointment(updateAppointment);
 		if(appointmentUpdate != null)
 		{
-        return NotFound();
-    }
+            return NotFound();
+        }
 
 		return NoContent();
 	}

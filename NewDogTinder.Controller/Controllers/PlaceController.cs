@@ -18,9 +18,14 @@ public class PlaceController : ControllerBase
     /// <returns>A place</returns>
     /// <response code="200"></response>
     [HttpGet("{placeId}", Name = "GetPlace")]
-    public async Task<PlaceViewModel> GetAppointment(int placeid)
+    public async Task<ActionResult> GetAppointment(int placeid)
     {
-        return await PlaceService.GetPlace(placeid);
+        var place = await PlaceService.GetPlace(placeid);
+        if (place == null)
+        {
+            return NotFound();
+        }
+        return Ok(place);
     }
 
     /// <summary>

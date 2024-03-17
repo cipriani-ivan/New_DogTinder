@@ -9,5 +9,6 @@ public class DogForInsertViewModel
 	[MaxLength(200)]
 	public string Breed { get; set; }
 	[Required]
-	public int  OwnerId { get; set; }
+    [Range(1, int.MaxValue)]
+    public int  OwnerId { get; set; }
 }
