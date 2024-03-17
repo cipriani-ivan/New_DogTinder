@@ -119,7 +119,7 @@
 		}
 
 		var appointmentUpdate = await AppointmentService.UpdateAppointment(updateAppointment);
-		if(appointmentUpdate != null)
+		if(appointmentUpdate == null)
 		{
             return NotFound();
         }

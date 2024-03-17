@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace NewDogTinder.Controller.Controllers;
@@ -35,8 +36,8 @@ public partial class AuthenticationController : ControllerBase
         _configuration = configuration;
     }
 
-    [HttpPost("authenticate")]
-    public ActionResult<string> Authenticate(
+    [HttpPost]
+    public IActionResult Authenticate(
         AuthenticationRequestBody authenticationRequestBody)
     {  
         // Step 1: validate the username/password
@@ -73,7 +74,7 @@ public partial class AuthenticationController : ControllerBase
         var tokenToReturn = new JwtSecurityTokenHandler()
            .WriteToken(jwtSecurityToken);
 
-        return Ok(tokenToReturn);
+        return Ok(new Token { JWT = tokenToReturn });
     }
 
     private CityInfoUser ValidateUserCredentials(string? userName, string? password)
@@ -84,5 +85,10 @@ public partial class AuthenticationController : ControllerBase
             "string",
             "string",
             "Trondheim");
+    }
+
+    private class Token
+    {
+        public string? JWT { get; set; }
     }
 }
